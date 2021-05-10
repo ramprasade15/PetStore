@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,14 +38,14 @@ public class PetStoreController {
 	}
 	
 	
-	@DeleteMapping("/deletepet/{id}")
+	@DeleteMapping("/deletepet/{petId}")
 	@ResponseStatus(HttpStatus.OK)
 	public void deletePetDetails(@PathVariable String petId) {
 		petStoreService.deletePetDetailsByPetId(petId);
 		
 	}
 	
-	@GetMapping("/retrivepet/{id}")
+	@GetMapping("/retrivepet/{petId}")
 	@ResponseStatus(HttpStatus.OK)
 	public PetDetails retrivePetDetailsById(@PathVariable String petId) {
 		return petStoreService.getPetDetailsByPetId(petId);
@@ -53,11 +54,10 @@ public class PetStoreController {
 	
 	@GetMapping("/retriveallpets")
 	@ResponseStatus(HttpStatus.OK)
-	public List<PetDetails> getAllPetDeatails() {
+	public List<PetDetails> getAllPetDeatails(@RequestParam Integer limit) {
 		Integer pageNo = 0;
-		Integer pageSize = 100;
 		String sortBy = "name";
-		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Pageable paging = PageRequest.of(pageNo, limit, Sort.by(sortBy));
 		return petStoreService.getAllPetDeatails(paging);
 		
 	}
@@ -70,6 +70,13 @@ public class PetStoreController {
 		
 		
     }
+	
+	@DeleteMapping("/deletepetbytype/{petType}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deletePetDetailsByPetType(@PathVariable String petType) {
+		petStoreService.deletePetDetailsByPetType(petType);
+		
+	}
 
 
 }

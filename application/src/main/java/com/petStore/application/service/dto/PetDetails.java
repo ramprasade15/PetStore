@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 public class PetDetails {
 	
 	@Id
-	@GeneratedValue
 	private String petId;
 
 	private String name;

@@ -17,4 +17,6 @@ public interface PetStoreService {
 
 	PetDetails addPetDetails(PetDetails petDetails);
 
+	void deletePetDetailsByPetType(String petType);
+
 }

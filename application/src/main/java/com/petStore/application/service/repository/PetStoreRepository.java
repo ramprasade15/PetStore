@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.petStore.application.service.dto.PetDetails;
 
 @Repository
+@Transactional 
 public interface PetStoreRepository extends PagingAndSortingRepository<PetDetails, Integer>{
 	
 	PetDetails save(PetDetails petDetails);

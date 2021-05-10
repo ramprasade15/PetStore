@@ -26,8 +26,17 @@ public class PetStoreServiceImpl implements PetStoreService {
 		
 		PetDetails p1 = petStoreRepository.findByPetId(petId);
 		
+		if(petDetails.getName() != null) { 
 		p1.setName(petDetails.getName());
+		}else {
+			p1.setName(p1.getName());
+		}
 		p1.setPetId(petId);
+		if(petDetails.getType() != null) {
+			p1.setType(petDetails.getType());
+		}else {
+			p1.setType(p1.getType());
+		}
 		p1.setPrice(petDetails.getPrice());
 		
 	
@@ -57,6 +66,19 @@ public class PetStoreServiceImpl implements PetStoreService {
 	public PetDetails addPetDetails(PetDetails petDetails) {
 		
 		return petStoreRepository.save(petDetails);
+	}
+
+
+	@Override
+	public void deletePetDetailsByPetType(String petType) {
+		List<PetDetails> petsList = petStoreRepository.findAll();
+		for(PetDetails pet: petsList) {
+			if(pet.getType().equals(petType)) {
+			petStoreRepository.deleteByPetId(pet.getPetId());
+			}
+		}
+		 
+		
 	}
 	
 
